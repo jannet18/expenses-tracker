@@ -20,7 +20,11 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 connectDB();
 
 app.use("/api/v1/auth", authRoutes);
