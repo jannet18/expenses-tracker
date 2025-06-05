@@ -1,4 +1,4 @@
-export const REACT_BASE_URL = "http://localhost:8000";
+export const REACT_BASE_URL = "https://expenses-tracker-haqf.onrender.com";
 
 // utils/apiPaths.js
 

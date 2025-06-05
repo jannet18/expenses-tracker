@@ -5,8 +5,12 @@ const axiosInstance = axios.create({
   baseURL: REACT_BASE_URL,
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
+    "Cache-Control": "no-cache",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Access-Control-Allow-Origin": "*",
+
+    // "Content-Type": "application/json",
+    // Accept: "application/json",
   },
 });
 

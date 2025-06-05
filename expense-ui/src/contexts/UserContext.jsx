@@ -37,8 +37,8 @@ export const UserProvider = ({ children }) => {
       { email, password },
       { withCredentials: true }
     );
-    if (response.data) {
-      setUser(response.data);
+    if (response?.data) {
+      setUser(response?.data);
     }
   };
 
