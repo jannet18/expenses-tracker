@@ -1,0 +1,19 @@
+# Node
+backend/node_modules/
+backend/.env
+
+# React
+expense-ui/node_modules/
+expense-ui/build/
+expense-ui/dist/
+expense-ui/.env
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+node_modules
