@@ -10,10 +10,22 @@ const expenseRoutes = require("./routes/expenseRoutes.js");
 const dashboardRoutes = require("./routes/dashboardRoutes.js");
 
 const app = express();
+const allowedOrigins = [
+  "https://expenses-tracker-haqf.onrender.com",
+  "http://localhost:5173",
+];
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+
+    // process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
