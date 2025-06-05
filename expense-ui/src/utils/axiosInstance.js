@@ -8,13 +8,10 @@ const axiosInstance = axios.create({
     "Cache-Control": "no-cache",
     "Content-Type": "application/x-www-form-urlencoded",
     "Access-Control-Allow-Origin": "*",
-
-    // "Content-Type": "application/json",
-    // Accept: "application/json",
   },
 });
 
-// // Request Interceptor
+// Request Interceptor
 axiosInstance.interceptors.request.use(
   (response) => response,
   (error) => {

@@ -3,7 +3,6 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
-  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -62,7 +61,6 @@ const CustomLineChart = ({ data }) => {
             strokeWidth={3}
             dot={{ r: 3, fill: "#1fcf31" }}
           />
-          {/* </CartesianGrid> */}
         </AreaChart>
       </ResponsiveContainer>
     </div>

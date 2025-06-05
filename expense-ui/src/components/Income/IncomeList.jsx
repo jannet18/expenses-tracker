@@ -3,12 +3,7 @@ import { LuDownload } from "react-icons/lu";
 import TransactionInfoCard from "../cards/TransactionInfoCard";
 import moment from "moment";
 
-const IncomeList = ({
-  transactions = [],
-  incomeData,
-  onDelete,
-  onDownload,
-}) => {
+const IncomeList = ({ transactions = [], onDelete, onDownload }) => {
   console.log("transactions:", transactions);
   return (
     <div className="card">

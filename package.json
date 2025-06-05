@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start:backend": "npm --prefix backend start",
-    "start:expense-ui": "npm --prefix expense-ui start",
+    "start:expense-ui": "npm --prefix expense-ui run dev",
     "start": "concurrently \"npm run start:backend\" \"npm run start:expense-ui\""
   },
   "devDependencies": {

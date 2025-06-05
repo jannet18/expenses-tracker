@@ -10,6 +10,7 @@ export const useAuth = () => {
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const fetchUser = async () => {
     try {
@@ -20,7 +21,7 @@ export const UserProvider = ({ children }) => {
         setUser(response.data);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setUser(null);
     } finally {
       setLoading(false);

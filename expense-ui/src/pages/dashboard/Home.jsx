@@ -43,13 +43,7 @@ function Home() {
 
   useEffect(() => {
     fetchDashboardData();
-    // return () => {};
   }, []);
-
-  // console.log(
-  //   "Income (30 days)",
-  //   dashboardData?.last60DaysIncome?.transactions
-  // );
 
   return (
     <DashboardLayout activeMenu="Dashboard">

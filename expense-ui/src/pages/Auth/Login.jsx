@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/inputs/Input";
 import { validateEmail } from "../../utils/helper";
 import { useAuth } from "../../contexts/UserContext";
-// import { UserContext } from "../../contexts/UserContext";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -31,7 +30,7 @@ function Login() {
       await login({ email, password });
       navigate("/dashboard");
     } catch (error) {
-      setError(error.response.data || "Login failed!");
+      setError(error?.response || "Login failed!");
     }
   };
   return (
