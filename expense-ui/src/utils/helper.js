@@ -20,7 +20,7 @@ export const addThousandsSeperator = (num) => {
   if (num == null || isNaN(num)) return "";
 
   const [integralPart, fractionalPart] = num.toString().split(".");
-  const formattedInteger = integralPart.replace(/\B(?=(\d{3}) +(?!\d))/g, ",");
+  const formattedInteger = integralPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return fractionalPart
     ? `${formattedInteger}.${fractionalPart}`
     : formattedInteger;

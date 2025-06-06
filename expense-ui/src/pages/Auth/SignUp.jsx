@@ -20,7 +20,7 @@ function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    let profileImageUrl = "";
+
     if (!fullName) {
       setError("Please enter your full name.");
       return;
@@ -38,10 +38,17 @@ function SignUp() {
     setError("");
     // signup API call
     try {
-      await login({ fullName, email, password, profilePic, profileImageUrl });
+      await register({
+        fullName,
+        email,
+        password,
+        profilePic,
+      });
       navigate("/dashboard");
     } catch (error) {
-      setError(error?.response || "Signup failed!");
+      const message =
+        error?.response?.data?.message || error?.message || "Signup failed!";
+      setError(message);
     }
   };
   return (

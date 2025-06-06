@@ -30,7 +30,9 @@ function Login() {
       await login({ email, password });
       navigate("/dashboard");
     } catch (error) {
-      setError(error?.response || "Login failed!");
+      const message =
+        error?.response?.data?.message || error?.message || "Login failed!";
+      setError(message);
     }
   };
   return (
@@ -56,9 +58,7 @@ function Login() {
             placeholder="Min 8 characters"
             type="password"
           />
-          {error && (
-            <p className="text-red-500 text-xs pb-2.5">{error?.message}</p>
-          )}
+          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
           <button type="submit" className="btn-primary">
             LOGIN
           </button>

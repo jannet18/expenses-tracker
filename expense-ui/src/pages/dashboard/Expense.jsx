@@ -30,7 +30,7 @@ function Expense() {
       if (response?.data) {
         setExpenseData(response?.data);
       }
-      // console.log("Expense Data", response.data);
+      console.log("Expense Data", response.data);
     } catch (error) {
       console.log("Something went wrong. Please try again later.", error);
     } finally {

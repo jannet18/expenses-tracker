@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_URLS } from "../utils/apiPaths";
+import uploadImage from "../utils/uploadImage";
 
 const UserContext = createContext();
 export const useAuth = () => {
@@ -12,17 +13,19 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  let profileImageUrl = "";
+
   const fetchUser = async () => {
     try {
       const response = await axiosInstance.get(API_URLS.AUTH.GET_USER_DATA, {
         withCredentials: true,
       });
-      if (response.data) {
-        setUser(response.data);
+      if (response?.data) {
+        setUser(response?.data);
       }
     } catch (error) {
-      setError(error.message);
       setUser(null);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -43,13 +46,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const register = async ({
-    fullName,
-    email,
-    password,
-    profilePic,
-    profileImageUrl,
-  }) => {
+  const register = async ({ fullName, email, password, profilePic }) => {
     setLoading(true);
 
     if (profilePic) {
@@ -66,8 +63,8 @@ export const UserProvider = ({ children }) => {
       },
       { withCredentials: true }
     );
-    if (response.data) {
-      setUser(response.data.user);
+    if (response?.data) {
+      setUser(response?.data);
       setLoading(false);
     }
   };
