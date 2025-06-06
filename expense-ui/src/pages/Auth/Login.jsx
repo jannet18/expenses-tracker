@@ -56,7 +56,9 @@ function Login() {
             placeholder="Min 8 characters"
             type="password"
           />
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-xs pb-2.5">{error?.message}</p>
+          )}
           <button type="submit" className="btn-primary">
             LOGIN
           </button>

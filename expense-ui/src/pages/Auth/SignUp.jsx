@@ -37,8 +37,12 @@ function SignUp() {
 
     setError("");
     // signup API call
-    await register({ fullName, email, password, profilePic });
-    navigate("/dashboard");
+    try {
+      await login({ fullName, email, password, profilePic, profileImageUrl });
+      navigate("/dashboard");
+    } catch (error) {
+      setError(error?.response || "Signup failed!");
+    }
   };
   return (
     <AuthLayout>

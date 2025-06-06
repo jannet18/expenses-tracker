@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
         setUser(response.data);
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
       setUser(null);
     } finally {
       setLoading(false);
@@ -33,7 +33,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const login = async ({ email, password }) => {
-    const response = await axiosInstance.post(
+    const response = await axiosInstance?.post(
       API_URLS.AUTH.LOGIN,
       { email, password },
       { withCredentials: true }
@@ -51,27 +51,24 @@ export const UserProvider = ({ children }) => {
     profileImageUrl,
   }) => {
     setLoading(true);
-    try {
-      if (profilePic) {
-        const imageUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imageUploadRes?.imageUrl || "";
-      }
-      const response = await axiosInstance.post(
-        API_URLS.AUTH.REGISTER,
-        {
-          fullName,
-          email,
-          password,
-          profileImageUrl,
-        },
-        { withCredentials: true }
-      );
-      if (response.data) {
-        setUser(response.data.user);
-        setLoading(false);
-      }
-    } catch (error) {
-      setError(error.response || "Something went wrong. Please try again.");
+
+    if (profilePic) {
+      const imageUploadRes = await uploadImage(profilePic);
+      profileImageUrl = imageUploadRes?.imageUrl || "";
+    }
+    const response = await axiosInstance?.post(
+      API_URLS.AUTH.REGISTER,
+      {
+        fullName,
+        email,
+        password,
+        profileImageUrl,
+      },
+      { withCredentials: true }
+    );
+    if (response.data) {
+      setUser(response.data.user);
+      setLoading(false);
     }
   };
 
