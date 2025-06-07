@@ -1,7 +1,7 @@
 # Node
 backend/node_modules/
 backend/.env
-
+.env
 # React
 expense-ui/node_modules/
 expense-ui/build/
