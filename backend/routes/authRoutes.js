@@ -15,7 +15,9 @@ router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/getUser", protect, getUserInfo);
 router.post("/upload-image", upload.single("image"), (req, res) => {
-  if (!req.file) {
+  console.log(req.file);
+
+  if (!req.file || !req.file.path) {
     return res.status(404).json({ message: "No file uploaded." });
   }
 

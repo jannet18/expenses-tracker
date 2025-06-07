@@ -43,6 +43,7 @@ export const UserProvider = ({ children }) => {
     );
     if (response?.data) {
       setUser(response?.data);
+      setLoading(false);
     }
   };
 
@@ -59,7 +60,8 @@ export const UserProvider = ({ children }) => {
         fullName,
         email,
         password,
-        profileImageUrl,
+        profilePic,
+        // profileImageUrl,
       },
       { withCredentials: true }
     );
