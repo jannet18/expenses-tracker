@@ -3,7 +3,7 @@ const generateTokenAndSetCookie = require("../utils/generateToken");
 
 const registerUser = async (req, res) => {
   const { fullName, email, password, profileImageUrl } = req.body;
-
+  console.log(req.body.profileImageUrl);
   //  validation:check for empty fields
   if (!fullName || !email || !password) {
     return res.status(400).json({ message: "All fields are required." });

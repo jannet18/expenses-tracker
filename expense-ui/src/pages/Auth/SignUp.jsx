@@ -14,6 +14,8 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  // let profileImageUrl = "";
+
   const navigate = useNavigate();
 
   const { register } = useAuth();

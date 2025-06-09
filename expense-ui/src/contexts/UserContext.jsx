@@ -13,8 +13,6 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  let profileImageUrl = "";
-
   const fetchUser = async () => {
     try {
       const response = await axiosInstance.get(API_URLS.AUTH.GET_USER_DATA, {
@@ -24,7 +22,7 @@ export const UserProvider = ({ children }) => {
         setUser(response?.data);
       }
     } catch (error) {
-      setUser(null);
+      // setUser(null);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -47,26 +45,66 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // const register = async ({
+  //   fullName,
+  //   email,
+  //   password,
+  //   profileImageUrl,
+  //   profilePic,
+  // }) => {
+  //   setLoading(true);
+
+  //   if (profilePic) {
+  //     const imageUploadRes = await uploadImage(profilePic);
+  //     profileImageUrl = imageUploadRes?.imageUrl || "";
+  //     console.log(imageUploadRes);
+  //   }
+
+  //   const response = await axiosInstance?.post(
+  //     API_URLS.AUTH.REGISTER,
+  //     {
+  //       fullName,
+  //       email,
+  //       password,
+  //       profileImageUrl,
+  //     },
+  //     { withCredentials: true }
+  //   );
+  //   if (response?.data) {
+  //     setUser(response?.data);
+  //     setLoading(false);
+  //   }
+  // };
+  // inside UserContext.js or wherever useAuth is defined
+
   const register = async ({ fullName, email, password, profilePic }) => {
     setLoading(true);
 
+    let profileImageUrl = "";
+
     if (profilePic) {
-      const imageUploadRes = await uploadImage(profilePic);
-      profileImageUrl = imageUploadRes?.imageUrl || "";
+      const { imageUrl } = await uploadImage(profilePic);
+      profileImageUrl = imageUrl;
     }
-    const response = await axiosInstance?.post(
-      API_URLS.AUTH.REGISTER,
-      {
-        fullName,
-        email,
-        password,
-        profilePic,
-        // profileImageUrl,
-      },
-      { withCredentials: true }
-    );
-    if (response?.data) {
-      setUser(response?.data);
+
+    try {
+      const response = await axiosInstance.post(
+        API_URLS.AUTH.REGISTER,
+        {
+          fullName,
+          email,
+          password,
+          profileImageUrl,
+        },
+        { withCredentials: true }
+      );
+
+      if (response?.data) {
+        setUser(response.data);
+      }
+    } catch (error) {
+      throw error;
+    } finally {
       setLoading(false);
     }
   };

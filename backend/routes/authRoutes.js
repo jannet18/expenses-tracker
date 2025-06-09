@@ -10,20 +10,21 @@ const upload = require("../middleware/uploadMiddleware.js");
 
 const router = express.Router();
 
+console.log(req.file.secure_url);
+
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/getUser", protect, getUserInfo);
 router.post("/upload-image", upload.single("image"), (req, res) => {
-  console.log(req.file);
-
   if (!req.file || !req.file.path) {
     return res.status(404).json({ message: "No file uploaded." });
   }
 
-  res
-    .status(200)
-    .json({ message: "Upload successful", imageUrl: req.file.path });
+  res.status(200).json({
+    message: "Upload successful",
+    imageUrl: req.file.path || req.file.secure_url || "",
+  });
 });
 
 module.exports = router;
