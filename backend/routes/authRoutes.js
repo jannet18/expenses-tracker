@@ -10,8 +10,6 @@ const upload = require("../middleware/uploadMiddleware.js");
 
 const router = express.Router();
 
-console.log(req.file.secure_url);
-
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
