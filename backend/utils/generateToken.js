@@ -21,7 +21,7 @@ const generateTokenAndSetCookie = (res, userId) => {
   });
 
   // return token;
-  return res.status(201).json({ message: "User registered successfully!" });
+  // return res.status(201).json({ message: "User registered successfully!" });
 };
 
 module.exports = generateTokenAndSetCookie;
