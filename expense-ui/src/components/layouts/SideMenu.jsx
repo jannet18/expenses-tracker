@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CharAvatar from "../cards/CharAvatar";
 
 function SideMenu({ activeMenu }) {
-  const { user, clearUser } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = (route) => {
@@ -18,7 +18,7 @@ function SideMenu({ activeMenu }) {
 
   const handleLogout = () => {
     localStorage.clear();
-    clearUser();
+    logout();
     navigate("/login");
   };
 

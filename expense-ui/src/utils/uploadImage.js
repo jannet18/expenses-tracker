@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 const uploadImage = async (imageFile) => {
   const formData = new FormData();
   // append image file
-  // console.log(response.data);
+
   formData.append("image", imageFile);
   try {
     const response = await axiosInstance?.post(
@@ -14,9 +14,8 @@ const uploadImage = async (imageFile) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-    // const imageUrl = response.data.secure_url || response.data.url || "";
-    // return { imageUrl };
-    console.log(response.data);
+
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     // throw error;

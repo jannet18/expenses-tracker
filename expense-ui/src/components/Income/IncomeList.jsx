@@ -4,7 +4,7 @@ import TransactionInfoCard from "../cards/TransactionInfoCard";
 import moment from "moment";
 
 const IncomeList = ({ transactions = [], onDelete, onDownload }) => {
-  console.log("transactions:", transactions);
+  // console.log("transactions:", transactions);
   return (
     <div className="card">
       <div className="flex items-center justify-between">

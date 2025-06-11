@@ -1,4 +1,3 @@
-// utils/generateToken.js
 const jwt = require("jsonwebtoken");
 
 /**
@@ -10,18 +9,19 @@ const generateTokenAndSetCookie = (res, userId) => {
     throw new Error("JWT_SECRET_KEY is not set in .env");
   }
 
-  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET_KEY, {
+  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
 
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Lax", // change to “None” + secure for cross-site
+    sameSite: "Lax",
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 
   // return token;
+  res.status(201).json({ message: "User registered successfully!" });
 };
 
 module.exports = generateTokenAndSetCookie;

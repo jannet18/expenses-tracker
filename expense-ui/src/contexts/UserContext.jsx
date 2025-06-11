@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_URLS } from "../utils/apiPaths";
 import uploadImage from "../utils/uploadImage";
+import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext();
 export const useAuth = () => {
@@ -22,7 +23,7 @@ export const UserProvider = ({ children }) => {
         setUser(response?.data);
       }
     } catch (error) {
-      // setUser(null);
+      setUser(false);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -44,38 +45,6 @@ export const UserProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
-  // const register = async ({
-  //   fullName,
-  //   email,
-  //   password,
-  //   profileImageUrl,
-  //   profilePic,
-  // }) => {
-  //   setLoading(true);
-
-  //   if (profilePic) {
-  //     const imageUploadRes = await uploadImage(profilePic);
-  //     profileImageUrl = imageUploadRes?.imageUrl || "";
-  //     console.log(imageUploadRes);
-  //   }
-
-  //   const response = await axiosInstance?.post(
-  //     API_URLS.AUTH.REGISTER,
-  //     {
-  //       fullName,
-  //       email,
-  //       password,
-  //       profileImageUrl,
-  //     },
-  //     { withCredentials: true }
-  //   );
-  //   if (response?.data) {
-  //     setUser(response?.data);
-  //     setLoading(false);
-  //   }
-  // };
-  // inside UserContext.js or wherever useAuth is defined
 
   const register = async ({ fullName, email, password, profilePic }) => {
     setLoading(true);
@@ -100,7 +69,7 @@ export const UserProvider = ({ children }) => {
       );
 
       if (response?.data) {
-        setUser(response.data);
+        await fetchUser();
       }
     } catch (error) {
       throw error;

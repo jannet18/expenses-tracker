@@ -31,11 +31,11 @@ function Home() {
       const response = await axiosInstance.get(
         `${API_URLS.DASHBOARD.GET_DATA}`
       );
-      if (response.data) {
-        setDashboardData(response.data);
+      if (response?.data) {
+        setDashboardData(response?.data);
       }
     } catch (error) {
-      console.log("Something went wrong. Please try again.", error);
+      console.error("Something went wrong. Please try again.", error);
     } finally {
       setLoading(false);
     }

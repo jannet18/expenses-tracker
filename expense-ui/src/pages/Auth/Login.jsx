@@ -29,6 +29,7 @@ function Login() {
     try {
       await login({ email, password });
       navigate("/dashboard");
+      // window.location.href = "/dashboard";
     } catch (error) {
       const message =
         error?.response?.data?.message || error?.message || "Login failed!";
