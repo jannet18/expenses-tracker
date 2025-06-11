@@ -6,7 +6,7 @@ const protect = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: "Not authenticated" });
 
   try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = await User.findById(user.id).select("-password");
     next();
   } catch (err) {

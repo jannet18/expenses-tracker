@@ -9,7 +9,7 @@ const generateTokenAndSetCookie = (res, userId) => {
     throw new Error("JWT_SECRET_KEY is not set in .env");
   }
 
-  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET_KEY, {
     expiresIn: "30d",
   });
 
@@ -21,7 +21,7 @@ const generateTokenAndSetCookie = (res, userId) => {
   });
 
   // return token;
-  res.status(201).json({ message: "User registered successfully!" });
+  return res.status(201).json({ message: "User registered successfully!" });
 };
 
 module.exports = generateTokenAndSetCookie;
