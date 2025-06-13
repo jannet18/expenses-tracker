@@ -68,7 +68,7 @@ const logoutUser = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   try {
-    const user = await User.findById(req?.user?.id).select("-password");
+    const user = await User.findById(req.user.id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
@@ -77,7 +77,9 @@ const getUserInfo = async (req, res) => {
   } catch (error) {
     // console.log(error);
     if (!res.headerSent) {
-      return res.json({ message: "Error finding user.", error: error.message });
+      return res
+        .status(500)
+        .json({ message: "Error finding user.", error: error.message });
     }
   }
 };

@@ -4,11 +4,6 @@ import { REACT_BASE_URL } from "./apiPaths";
 const axiosInstance = axios.create({
   baseURL: REACT_BASE_URL,
   withCredentials: true,
-  headers: {
-    // "Cache-Control": "no-cache",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Access-Control-Allow-Origin": "*",
-  },
 });
 
 // Request Interceptor

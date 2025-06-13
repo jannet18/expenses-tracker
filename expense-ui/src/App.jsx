@@ -6,15 +6,14 @@ import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/dashboard/Home";
 import Expense from "./pages/dashboard/Expense";
 import Income from "./pages/dashboard/Income";
-import ProtectedRoute from "./components/ProtectedRoute";
-// import { useAuth } from "./contexts/UserContext";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        {/* <Route path="/" element={<Root />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route
@@ -44,6 +43,6 @@ export default App;
 
 // const Root = () => {
 //   const { user } = useAuth();
-//   return <Navigate to={user ? "/dashboard" : "/login"} />;
-//   // return <div>Welcome</div>;
+//   const isAuthenticated = !!user;
+//   return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} />;
 // };

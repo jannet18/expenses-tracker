@@ -6,8 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
 
 import { useAuth } from "../../contexts/UserContext";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_URLS } from "../../utils/apiPaths";
 
 function SignUp() {
   const [profilePic, setProfilePic] = useState(null);
@@ -15,6 +13,8 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  // let profileImageUrl = "";
 
   const navigate = useNavigate();
 
@@ -46,10 +46,6 @@ function SignUp() {
         password,
         profilePic,
       });
-      const { data: currentUser } = await axiosInstance.get(
-        API_URLS.AUTH.GET_USER_DATA
-      );
-      setUser(currentUser);
       navigate("/dashboard");
     } catch (error) {
       const message =

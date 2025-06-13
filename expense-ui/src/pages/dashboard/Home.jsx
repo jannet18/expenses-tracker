@@ -17,12 +17,18 @@ import RecentIncome from "../../components/Dashboard/RecentIncome";
 import { useAuth } from "../../contexts/UserContext";
 
 function Home() {
-  useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (user === null) return;
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
   const fetchDashboardData = async () => {
     if (loading) return;
     setLoading(true);
@@ -42,8 +48,8 @@ function Home() {
   };
 
   useEffect(() => {
-    fetchDashboardData();
-  }, []);
+    if (user) fetchDashboardData();
+  }, [user]);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
