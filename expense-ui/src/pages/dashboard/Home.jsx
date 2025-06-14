@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-// import UseUserAuth from "../../hooks/UseUserAuth";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URLS } from "../../utils/apiPaths";
@@ -14,10 +13,10 @@ import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions"
 import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
 import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 import RecentIncome from "../../components/Dashboard/RecentIncome";
-import { useAuth } from "../../contexts/UserContext";
+import { useUserAuth } from "../../hooks/useUserAuth";
 
 function Home() {
-  const { user } = useAuth();
+  useUserAuth();
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
@@ -35,12 +34,14 @@ function Home() {
 
     try {
       const response = await axiosInstance.get(
-        `${API_URLS.DASHBOARD.GET_DATA}`
+        `${API_URLS.DASHBOARD.GET_DATA}`,
+        { withCredentials: true }
       );
       if (response?.data) {
         setDashboardData(response?.data);
       }
     } catch (error) {
+      setDashboardData(null);
       console.error("Something went wrong. Please try again.", error);
     } finally {
       setLoading(false);

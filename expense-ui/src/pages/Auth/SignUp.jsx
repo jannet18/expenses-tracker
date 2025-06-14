@@ -4,8 +4,10 @@ import ProfilePhotoSelector from "../../components/inputs/ProfilePhotoSelector";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
-
 import { useAuth } from "../../contexts/UserContext";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_URLS } from "../../utils/apiPaths";
+import uploadImage from "../../utils/uploadImage";
 
 function SignUp() {
   const [profilePic, setProfilePic] = useState(null);
@@ -14,11 +16,11 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  // let profileImageUrl = "";
+  let profileImageUrl = "";
 
   const navigate = useNavigate();
 
-  const { register } = useAuth();
+  const { updateUser } = useAuth();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -39,18 +41,48 @@ function SignUp() {
 
     setError("");
     // signup API call
+    // try {
+    //   await register({
+    //     fullName,
+    //     email,
+    //     password,
+    //     profilePic,
+    //   });
+    //   navigate("/dashboard");
+    // } catch (error) {
+    //   const message =
+    //     error?.response?.data?.message || error?.message || "Signup failed!";
+    //   setError(message);
+    // }
     try {
-      await register({
+      if (profilePic) {
+        const { imageUrl } = await uploadImage(profilePic);
+        profileImageUrl = imageUrl;
+        // const imageUploadRes = await uploadImage(profilePic);
+        // profileImageUrl = imageUploadRes.imageUrl || "";
+        // console.log("upload result", imageUploadRes);
+      }
+      const response = await axiosInstance.post(API_URLS.AUTH.REGISTER, {
         fullName,
         email,
         password,
-        profilePic,
+        profileImageUrl,
       });
-      navigate("/dashboard");
+      const { token, user } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard");
+      }
     } catch (error) {
-      const message =
-        error?.response?.data?.message || error?.message || "Signup failed!";
-      setError(message);
+      if (error.response && error.response.data.message) {
+        const message =
+          error?.response?.data?.message || error?.message || "Signup failed!";
+        setError(message);
+      }
+      // else {
+      //   setError("Something went wrong. Please try again later.");
+      // }
     }
   };
   return (

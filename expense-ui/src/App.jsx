@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<Root />} /> */}
+        <Route path="/" element={<Root />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route
@@ -41,8 +41,8 @@ function App() {
 
 export default App;
 
-// const Root = () => {
-//   const { user } = useAuth();
-//   const isAuthenticated = !!user;
-//   return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} />;
-// };
+const Root = () => {
+  // const { user } = useAuth();
+  const isAuthenticated = !!localStorage.getItem("token");
+  return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} />;
+};

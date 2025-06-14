@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const generateTokenAndSetCookie = require("../utils/generateToken");
+const generateToken = require("../utils/generateToken");
 
 const registerUser = async (req, res) => {
   const { fullName, email, password, profileImageUrl } = req.body;
@@ -17,19 +17,35 @@ const registerUser = async (req, res) => {
     }
 
     // create user
+    // const user = await User.create({
+    //   fullName,
+    //   email,
+    //   password,
+    //   profileImageUrl,
+    // });
+    // console.log(user);
+    // generateTokenAndSetCookie(res, user._id);
+    // return res.status(201).json({ user });
+
     const user = await User.create({
       fullName,
       email,
       password,
       profileImageUrl,
     });
-    console.log(user);
-    generateTokenAndSetCookie(res, user._id);
-    return res.status(201).json({ user });
+
+    res.status(201).json([
+      {
+        id: user._id,
+        user,
+        token: generateToken(user._id),
+      },
+    ]);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error registering user", error: error.message });
+    res.status(500).json({
+      message: "Something went wrong during registration.",
+      error: error.message,
+    });
   }
 };
 
@@ -44,8 +60,11 @@ const loginUser = async (req, res) => {
     if (!user || !(await user.comparePassword(password))) {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
-    generateTokenAndSetCookie(res, user._id);
-    return res.status(200).json({ user });
+
+    // generateTokenAndSetCookie(res, user._id);
+    return res
+      .status(200)
+      .json({ id: user._id, user, token: generateToken(user._id) });
   } catch (error) {
     res
       .status(500)

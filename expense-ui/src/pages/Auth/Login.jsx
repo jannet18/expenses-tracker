@@ -4,13 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/inputs/Input";
 import { validateEmail } from "../../utils/helper";
 import { useAuth } from "../../contexts/UserContext";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_URLS } from "../../utils/apiPaths";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const { login } = useAuth();
+  const { updateUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -26,14 +28,39 @@ function Login() {
     setError("");
 
     // Login api
+    // try {
+    //   await login({ email, password });
+    //   navigate("/dashboard");
+    //   // window.location.href = "/dashboard";
+    // } catch (error) {
+    //   const message =
+    //     error?.response?.data?.message || error?.message || "Login failed!";
+    //   setError(message);
+    // }
     try {
-      await login({ email, password });
-      navigate("/dashboard");
-      // window.location.href = "/dashboard";
+      const response = await axiosInstance.post(API_URLS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+
+      const { token, user } = response.data;
+      console.log("sign up", response.data);
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard");
+      } else {
+        console.warn("No token returned from backend");
+        setError("Signup failed. No token received.");
+      }
     } catch (error) {
-      const message =
-        error?.response?.data?.message || error?.message || "Login failed!";
-      setError(message);
+      if (error.response && error.response.data.message) {
+        const message =
+          error?.response?.data?.message || error?.message || "Login failed!";
+        setError(message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     }
   };
   return (
