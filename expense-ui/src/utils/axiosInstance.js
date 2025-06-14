@@ -3,7 +3,11 @@ import { REACT_BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
   baseURL: REACT_BASE_URL,
-  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+
+  // withCredentials: true,
 });
 
 // Request Interceptor
@@ -23,9 +27,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("token");
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },

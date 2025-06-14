@@ -72,7 +72,7 @@ function SignUp() {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
-        navigate("/dashboard");
+        navigate("/dashboard", { replace: true });
       }
     } catch (error) {
       if (error.response && error.response.data.message) {

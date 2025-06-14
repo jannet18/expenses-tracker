@@ -43,7 +43,7 @@ function Login() {
         password,
       });
 
-      const { token, user } = response.data;
+      const { token, user } = response?.data;
       console.log("sign up", response.data);
       if (token) {
         localStorage.setItem("token", token);
@@ -54,7 +54,7 @@ function Login() {
         setError("Signup failed. No token received.");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error?.response && error?.response?.data.message) {
         const message =
           error?.response?.data?.message || error?.message || "Login failed!";
         setError(message);

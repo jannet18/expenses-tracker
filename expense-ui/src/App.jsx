@@ -8,8 +8,10 @@ import Expense from "./pages/dashboard/Expense";
 import Income from "./pages/dashboard/Income";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useUserAuth } from "./hooks/useUserAuth";
 
 function App() {
+  useUserAuth();
   return (
     <>
       <Routes>
@@ -24,8 +26,22 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/income" element={<Income />} />
-        <Route path="/expense" element={<Expense />} />
+        <Route
+          path="/income"
+          element={
+            <ProtectedRoute>
+              <Income />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/expense"
+          element={
+            <ProtectedRoute>
+              <Expense />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Toaster
         toastOptions={{

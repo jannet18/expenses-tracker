@@ -9,6 +9,12 @@ export const useUserAuth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      clearUser();
+      navigate("/login");
+      return;
+    }
     if (user) return;
 
     let isMounted = true;
@@ -30,5 +36,5 @@ export const useUserAuth = () => {
     return () => {
       isMounted = false;
     };
-  }, [updateUser, clearUser, navigate]);
+  }, [user, updateUser, clearUser, navigate]);
 };

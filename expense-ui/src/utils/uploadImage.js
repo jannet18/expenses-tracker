@@ -11,7 +11,10 @@ const uploadImage = async (imageFile) => {
       API_URLS.IMAGE.UPLOAD_IMAGE,
       formData,
       {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
