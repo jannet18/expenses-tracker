@@ -64,7 +64,7 @@ function Income() {
     }
 
     try {
-      console.log("posting income", { source, amount, date, icon });
+      // console.log("posting income", { source, amount, date, icon });
       await axiosInstance.post(API_URLS.INCOME.ADD_INCOME, {
         source,
         amount,
