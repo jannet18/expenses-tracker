@@ -16,7 +16,8 @@ function App() {
   useUserAuth();
 
   useEffect(() => {
-    const isDemo = process.env.REACT_APP_DEMO_MODE === "true";
+    let REACT_APP_DEMO_MODE;
+    const isDemo = REACT_APP_DEMO_MODE === "true";
     if (isDemo && !localStorage.getItem("token")) {
       axiosInstance
         .post(API_URLS.AUTH.LOGIN, {

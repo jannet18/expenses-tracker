@@ -63,6 +63,26 @@ function Login() {
       }
     }
   };
+
+  const handleDemoLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post(API_URLS.AUTH.LOGIN, {
+        email: "demo@example.com",
+        password: "demopassword",
+      });
+
+      const { token, user } = response?.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard", { replace: true });
+      }
+    } catch (error) {
+      console.log("Demo login failed", error);
+      setError("Could not login as demo user.");
+    }
+  };
   return (
     <AuthLayout>
       <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
@@ -89,6 +109,13 @@ function Login() {
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
           <button type="submit" className="btn-primary">
             LOGIN
+          </button>
+          <button
+            type="submit"
+            onClick={handleDemoLogin}
+            className="w-full text-sm font-medium text-white bg-green-300 shadow-lg shadow-green-600/5 p-[10px] rounded-md my-1 hover:bg-green-600/15 hover:text-green-600 uppercase"
+          >
+            Try Demo
           </button>
           <p className="text-[13px] text-slate-800 mt-3">
             Don't have an account?
