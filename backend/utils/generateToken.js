@@ -24,8 +24,10 @@ const jwt = require("jsonwebtoken");
 //   // return res.status(201).json({ message: "User registered successfully!" });
 // };
 
-const generateToken = async (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+const generateToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET_KEY, {
+    expiresIn: "7d",
+  });
 };
 
 module.exports = generateToken;

@@ -6,14 +6,14 @@ const registerUser = async (req, res) => {
 
   //  validation:check for empty fields
   if (!fullName || !email || !password) {
-    return res.status(400).json({ message: "All fields are required." });
+    return res.status(401).json({ message: "All fields are required." });
   }
 
   try {
     // check if email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already in use." });
+      return res.status(401).json({ message: "Email already in use." });
     }
 
     // create user
@@ -33,14 +33,15 @@ const registerUser = async (req, res) => {
       password,
       profileImageUrl,
     });
+    if (user) {
+      const token = generateToken(user._id);
 
-    res.status(201).json([
-      {
+      return res.status(201).json({
         id: user._id,
         user,
-        token: generateToken(user._id),
-      },
-    ]);
+        token,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong during registration.",
@@ -62,9 +63,10 @@ const loginUser = async (req, res) => {
     }
 
     // generateTokenAndSetCookie(res, user._id);
-    return res
-      .status(200)
-      .json({ id: user._id, user, token: generateToken(user._id) });
+    if (user) {
+      const token = generateToken(user._id);
+      return res.status(201).json({ id: user._id, user, token });
+    }
   } catch (error) {
     res
       .status(500)

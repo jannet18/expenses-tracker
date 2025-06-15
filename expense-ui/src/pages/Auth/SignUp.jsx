@@ -14,6 +14,7 @@ function SignUp() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   let profileImageUrl = "";
@@ -55,12 +56,11 @@ function SignUp() {
     //   setError(message);
     // }
     try {
+      setLoading(true);
       if (profilePic) {
-        const { imageUrl } = await uploadImage(profilePic);
-        profileImageUrl = imageUrl;
-        // const imageUploadRes = await uploadImage(profilePic);
-        // profileImageUrl = imageUploadRes.imageUrl || "";
-        // console.log("upload result", imageUploadRes);
+        const imageUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imageUploadRes.imageUrl || "";
+        console.log("upload result", imageUploadRes);
       }
       const response = await axiosInstance.post(API_URLS.AUTH.REGISTER, {
         fullName,
@@ -68,14 +68,15 @@ function SignUp() {
         password,
         profileImageUrl,
       });
-      const { token, user } = response.data;
+      const { token, user } = response?.data;
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
         navigate("/dashboard", { replace: true });
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      // updateUser(null);
+      if (error.response && error.response?.data?.message) {
         const message =
           error?.response?.data?.message || error?.message || "Signup failed!";
         setError(message);
@@ -83,6 +84,8 @@ function SignUp() {
       // else {
       //   setError("Something went wrong. Please try again later.");
       // }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -92,7 +95,7 @@ function SignUp() {
         <p className="text-xs text-slate-700 mt-[5px] mb-6">
           Join us today by entering your details below
         </p>
-        <form onSubmit={handleSignUp} className="">
+        <form onSubmit={handleSignUp}>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input

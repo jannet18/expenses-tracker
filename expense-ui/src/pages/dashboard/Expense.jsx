@@ -8,10 +8,11 @@ import DeleteAlert from "../../components/DeleteAlert";
 import ExpenseList from "../../components/Expense/ExpenseList";
 import Modal from "../../components/layouts/Modal";
 import toast from "react-hot-toast";
-import { useAuth } from "../../contexts/UserContext";
+// import { useAuth } from "../../contexts/UserContext";
+import { useUserAuth } from "../../hooks/useUserAuth";
 
 function Expense() {
-  useAuth();
+  useUserAuth();
   const [expenseData, setExpenseData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
@@ -24,8 +25,8 @@ function Expense() {
     if (loading) return;
     try {
       const response = await axiosInstance.get(
-        `${API_URLS.EXPENSE.GET_ALL_EXPENSE}`,
-        { withCredentials: true }
+        `${API_URLS.EXPENSE.GET_ALL_EXPENSE}`
+        // { withCredentials: true }
       );
       if (response?.data) {
         setExpenseData(response?.data);

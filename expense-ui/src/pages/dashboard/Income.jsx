@@ -8,9 +8,10 @@ import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/DeleteAlert";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { toast } from "react-hot-toast";
-import { useAuth } from "../../contexts/UserContext";
+// import { useAuth } from "../../contexts/UserContext";
+import { useUserAuth } from "../../hooks/useUserAuth";
 function Income() {
-  useAuth();
+  useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
@@ -27,8 +28,7 @@ function Income() {
 
     try {
       const response = await axiosInstance.get(
-        `${API_URLS.INCOME.GET_ALL_INCOME}`,
-        { withCredentials: true }
+        `${API_URLS.INCOME.GET_ALL_INCOME}`
       );
 
       if (response?.data) {

@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 // import uploadImage from "../utils/uploadImage";
 // import { useNavigate } from "react-router-dom";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 export const useAuth = () => {
   return useContext(UserContext);
 };

@@ -10,17 +10,16 @@ export const useUserAuth = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      clearUser();
-      navigate("/login");
-      return;
-    }
-    if (user) return;
+    if (!token || !user) return;
 
     let isMounted = true;
     const fetchUserInfo = async () => {
       try {
-        const response = await axiosInstance.get(API_URLS.AUTH.GET_USER_DATA);
+        const response = await axiosInstance.get(API_URLS.AUTH.GET_USER_DATA, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (isMounted && response.data) {
           updateUser(response.data);
         }
@@ -32,7 +31,9 @@ export const useUserAuth = () => {
         }
       }
     };
+
     fetchUserInfo();
+
     return () => {
       isMounted = false;
     };

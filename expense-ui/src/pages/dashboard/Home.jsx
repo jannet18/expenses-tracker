@@ -36,8 +36,7 @@ function Home() {
 
     try {
       const response = await axiosInstance.get(
-        `${API_URLS.DASHBOARD.GET_DATA}`,
-        { withCredentials: true }
+        `${API_URLS.DASHBOARD.GET_DATA}`
       );
       if (response?.data) {
         setDashboardData(response?.data);

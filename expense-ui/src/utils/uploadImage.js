@@ -7,13 +7,12 @@ const uploadImage = async (imageFile) => {
 
   formData.append("image", imageFile);
   try {
-    const response = await axiosInstance?.post(
+    const response = await axiosInstance.post(
       API_URLS.IMAGE.UPLOAD_IMAGE,
       formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -21,9 +20,9 @@ const uploadImage = async (imageFile) => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    // throw error;
     console.log(error?.response?.data || error.message);
-    return { imageUrl: "" };
+    throw error;
+    // return { imageUrl: "" };
   }
 };
 

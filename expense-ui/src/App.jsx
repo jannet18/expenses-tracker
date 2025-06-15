@@ -59,6 +59,6 @@ export default App;
 
 const Root = () => {
   // const { user } = useAuth();
-  const isAuthenticated = !!localStorage.getItem("token");
-  return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} />;
+  // const isAuthenticated = !!localStorage.getItem("token");
+  return <Navigate to="/" />;
 };
