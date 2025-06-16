@@ -80,7 +80,5 @@ function App() {
 export default App;
 
 const Root = () => {
-  // const { user } = useAuth();
-  // const isAuthenticated = !!localStorage.getItem("token");
   return <Navigate to="/" />;
 };
