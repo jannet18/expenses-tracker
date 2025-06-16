@@ -1,6 +1,6 @@
-export const REACT_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  "https://expenses-tracker-haqf.onrender.com";
+export const REACT_BASE_URL = isDev ? "http://localhost:8000" : "";
+//   import.meta.env.VITE_API_BASE_URL ||
+//   "https://expenses-tracker-haqf.onrender.com";
 
 // utils/apiPaths.js
 

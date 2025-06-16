@@ -10,10 +10,10 @@ const expenseRoutes = require("./routes/expenseRoutes.js");
 const dashboardRoutes = require("./routes/dashboardRoutes.js");
 
 const app = express();
-const allowedOrigins = [
-  "https://expenses-tracker-haqf.onrender.com",
-  "http://localhost:5173",
-];
+// const allowedOrigins = [
+//   "https://expenses-tracker-haqf.onrender.com",
+//   "http://localhost:5173",
+// ];
 
 // app.use(
 //   cors({
@@ -22,19 +22,19 @@ const allowedOrigins = [
 //   })
 // );
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
 
 app.use(cookieParser());
 app.use(express.json());
