@@ -7,8 +7,11 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      "/api":
-        "https://expenses-tracker-haqf.onrender.com" || "http://localhost:8000",
+      "/api": {
+        targetr: "http://localhost:8000",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });
