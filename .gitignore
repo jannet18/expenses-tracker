@@ -4,8 +4,8 @@ backend/.env
 .env
 # React
 expense-ui/node_modules/
-expense-ui/build/
-expense-ui/dist/
+# expense-ui/build/
+# expense-ui/dist/
 expense-ui/.env
 
 # Logs
