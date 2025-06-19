@@ -49,8 +49,9 @@ app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+app.use(express.static(path.join(__dirname, "../expense-ui/dist")));
 app.get(/(.*)/, (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "../expense-ui/dist", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
