@@ -11,7 +11,6 @@ export const useAuth = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  // const [loading, setLoading] = useState(true);
 
   const updateUser = (userData) => {
     setUser(userData);
