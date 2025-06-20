@@ -11,6 +11,7 @@ export const useAuth = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  // const [loading, setLoading] = useState(true);
 
   const updateUser = (userData) => {
     setUser(userData);
@@ -21,7 +22,9 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, updateUser, clearUser }}>
+    <UserContext.Provider
+      value={{ user, updateUser, clearUser, isAuthenticated: !!user }}
+    >
       {children}
     </UserContext.Provider>
   );

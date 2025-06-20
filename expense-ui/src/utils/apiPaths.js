@@ -1,8 +1,8 @@
-const isDev = import.meta.env.DEV;
+// const isDev = import.meta.env.DEV;
 
-export const REACT_BASE_URL = isDev
-  ? "/api"
-  : import.meta.env.VITE_API_BASE_URL;
+// export const REACT_BASE_URL = isDev
+//   ? "/api"
+//   : import.meta.env.VITE_API_BASE_URL;
 
 // utils/apiPaths.js
 

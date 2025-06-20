@@ -1,14 +1,12 @@
 import axios from "axios";
-import { REACT_BASE_URL } from "./apiPaths";
+// import { REACT_BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
-  baseURL: REACT_BASE_URL,
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
-
-  // withCredentials: true,
 });
 
 // Request Interceptor
