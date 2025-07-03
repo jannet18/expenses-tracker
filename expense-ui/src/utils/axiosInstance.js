@@ -1,12 +1,12 @@
 import axios from "axios";
-// import { REACT_BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "/api/v1",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
+  withCredentials: true,
 });
 
 // Request Interceptor

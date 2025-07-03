@@ -10,17 +10,17 @@ const expenseRoutes = require("./routes/expenseRoutes.js");
 const dashboardRoutes = require("./routes/dashboardRoutes.js");
 
 const app = express();
-// const allowedOrigins = [
-//   "https://expenses-tracker-haqf.onrender.com",
-//   "http://localhost:5173",
-// ];
+const allowedOrigins = [
+  "https://expenses-tracker-haqf.onrender.com",
+  "http://localhost:5173",
+];
 
-// app.use(
-//   cors({
-//     origin: allowedOrigins,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 // app.use(
 //   cors({
@@ -51,7 +51,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(express.static(path.join(__dirname, "../expense-ui/dist")));
 app.get(/(.*)/, (req, res) => {
-  res.sendFile(path.join(__dirname, "../expense-ui/dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../expense-ui/dist/index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
