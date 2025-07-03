@@ -10,6 +10,7 @@ const expenseRoutes = require("./routes/expenseRoutes.js");
 const dashboardRoutes = require("./routes/dashboardRoutes.js");
 
 const app = express();
+
 const allowedOrigins = [
   "https://expenses-tracker-haqf.onrender.com",
   "http://localhost:5173",
@@ -35,7 +36,7 @@ app.use(
 //     allowedHeaders: ["Content-Type", "Authorization"],
 //   })
 // );
-
+app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
