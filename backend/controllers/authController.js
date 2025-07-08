@@ -16,17 +16,6 @@ const registerUser = async (req, res) => {
       return res.status(401).json({ message: "Email already in use." });
     }
 
-    // create user
-    // const user = await User.create({
-    //   fullName,
-    //   email,
-    //   password,
-    //   profileImageUrl,
-    // });
-    // console.log(user);
-    // generateTokenAndSetCookie(res, user._id);
-    // return res.status(201).json({ user });
-
     const user = await User.create({
       fullName,
       email,
@@ -35,10 +24,12 @@ const registerUser = async (req, res) => {
     });
     if (user) {
       const token = generateToken(user._id);
+      const safeUser = user.toObject();
+      delete safeUser.password; // Remove password from the response
 
       return res.status(201).json({
         id: user._id,
-        user,
+        user: safeUser,
         token,
       });
     }
@@ -65,7 +56,10 @@ const loginUser = async (req, res) => {
     // generateTokenAndSetCookie(res, user._id);
     if (user) {
       const token = generateToken(user._id);
-      return res.status(201).json({ id: user._id, user, token });
+      const safeUser = user.toObject();
+      delete safeUser.password; // Remove password from the response
+
+      return res.status(201).json({ id: user._id, user: safeUser, token });
     }
   } catch (error) {
     res
@@ -73,10 +67,6 @@ const loginUser = async (req, res) => {
       .json({ message: "Error logging in user", error: error.message });
   }
 };
-
-// const getUserInfo = async (req, res) => {
-//   res.json(req.user);
-// };
 
 const logoutUser = async (req, res) => {
   res.clearCookie("token", {
@@ -93,7 +83,7 @@ const getUserInfo = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
-    // console.log("Sending 200 with user data");
+
     return res.status(200).json(user);
   } catch (error) {
     // console.log(error);

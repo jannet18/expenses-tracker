@@ -45,11 +45,12 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401) {
         // redirect to login
+        localStorage.removeItem("token");
         window.location.href = "/login";
-      } else if (error.response.status === 500) {
-        console.error("Server Error. Please try again later.");
-      } else if (error.code === "ECONNABORTED") {
-        console.error("Request timeout. Please try again.");
+      } else if (error.response.status === 403) {
+        console.error(
+          "Forbidden: You do not have permission to access this resource."
+        );
       }
     }
     return Promise.reject(error);
