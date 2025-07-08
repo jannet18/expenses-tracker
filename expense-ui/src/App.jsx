@@ -12,9 +12,10 @@ import { useUserAuth } from "./hooks/useUserAuth";
 import axiosInstance from "./utils/axiosInstance";
 import { API_URLS } from "./utils/apiPaths";
 import { useState } from "react";
+import { useAuth } from "./contexts/UserContext";
 
 function App() {
-  useUserAuth();
+  const { updateUser } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +30,7 @@ function App() {
           password: "demopassword",
         })
         .then((res) => {
-          const { token, user } = res.data;
+          const { token, user } = res.data.email;
           if (token) {
             localStorage.setItem("token", token);
             updateUser(user);

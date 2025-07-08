@@ -16,8 +16,9 @@ const seedDemoUser = async () => {
         profileImageUrl:
           "https://cdna.artstation.com/p/assets/images/images/023/576/078/original/ying-chen-me-optimize.gif?1579652163",
       });
-
-      await demoUser.save();
+      const safeUser = demoUser.toObject();
+      delete safeUser.password; // Remove password from the response
+      await safeUser.save();
       console.log("Demo user created successfully!");
     }
     mongoose.disconnect();

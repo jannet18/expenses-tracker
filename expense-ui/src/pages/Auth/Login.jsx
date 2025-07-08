@@ -43,7 +43,7 @@ function Login() {
         password,
       });
 
-      const { token, user } = response?.data;
+      const { token, user } = response?.data?.user?.email;
       // console.log("login", response.data);
       if (token) {
         localStorage.setItem("token", token);
